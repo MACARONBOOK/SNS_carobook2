@@ -26,6 +26,93 @@ Things you may want to cover:
 
 + first commit → made format(use simply)
 + second commit → add like-it & comment function with js
-+
-+
-+
++ third~sixth commit → add follow & search function & recover
+<br>
+
+ # Search_function(other style)
+ 
+* create controller<br>
+  rails g controller searches
+  
+* define search-action on SearchCon(conditional branch)
+* + search-model→ params[:model]、method→ params[:content]、word→ params[:method]<br>  
+  def search<br>
+   @model = params[:model]<br>
+   @content = params[:content]<br>
+   @method = params[:method]<br>
+   if @model == 'user'<br>
+      @records = User.search_for(@content, @method)<br>
+    else<br>
+      @records = Book.search_for(@content, @method)<br>
+    end<br>
+  end<br>
+ 
+  
+* add at routing  <br>
+  get 'search' => 'searches#search'
+  
+* add render on Application.html.erb(above the yield)<br>
+  <div class="d-flex justify-content-center mb-2"><br>
+    <%= render 'searches/form' %>  <br>
+  </div><br>
+
+* create template(searches/_form)
+* + conditional branch<br>
+  (f.text_field :content)<br>
+  (f.select :model)<br>
+  (f.select :method)<br>
+
+* write define on each model(user,book)(search-method-branch)<br>
+  perfect,forward,backward,partial<br>
+
+* + user.rb<br>
+  def self.search_for(content, method)<br>
+    if method == 'perfect'<br>
+      User.where(name: content)<br>
+    elsif method == 'forward'<br>
+      User.where('name LIKE ?', content + '%')<br>
+    elsif method == 'backward'<br>
+      User.where('name LIKE ?', '%' + content)<br>
+    else<br>
+      User.where('name LIKE ?', '%' + content + '%')<br>
+    end<br>
+  end<br>
+end
+  
+* + book.rb <br>
+  def self.search_for(content, method)<br>
+    if method == 'perfect'<br>
+      Book.where(title: content)<br>
+    elsif method == 'forward'<br>
+      Book.where('title LIKE ?', content+'%')<br>
+    elsif method == 'backward'<br>
+      Book.where('title LIKE ?', '%'+content)<br>
+    else<br>
+      Book.where('title LIKE ?', '%'+content+'%')<br>
+    end<br>
+  end
+
+* write view(searches/search_result)※remove<><br>
+  h2 Results index /h2<br>
+
+  table class="table table-hover table-inverse"<br>
+  --検索対象モデルがUserの時 --<br>
+  % if @model == "user" %<br>
+    h3 Users search for " %= @content % " h3<br>
+      % @users.each do |user| %<br>
+        tr<br>
+          td %= user.name % /td <br>
+        /tr<br>
+      % end %<br>
+  
+   --検索対象モデルがUserではない時(= 検索対象モデルがBookの時) --<br>
+    % elsif @model == 'book' %<br>
+    h3 Books search for " %= @content % " h3<br>
+      % @books.each do |book| %<br>
+        tr<br>
+          td %= book.title % /td<br>
+          td %= book.body % /td<br>
+        /tr<br>
+      % end %<br>
+  % end %<br>
+  /table<br>
