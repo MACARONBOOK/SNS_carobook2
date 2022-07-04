@@ -23,3 +23,9 @@ Things you may want to cover:
 
 * ...
 # SNS_carobook2
+
++ first commit → made format(use simply)
++ second commit → add like-it & comment function with js
++
++
++
