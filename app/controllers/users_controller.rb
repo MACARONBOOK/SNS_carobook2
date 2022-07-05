@@ -6,7 +6,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
+    if current_user.id == @user.id
+      @msg ="他のユーザーとDMしてみよう！"
+    else
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
           if cu.room_id == u.room_id then
@@ -15,15 +17,16 @@ class UsersController < ApplicationController
           end
         end
       end
+
       if @isRoom != true
         @room = Room.new
         @entry = Entry.new
       end
-　  end
-
+    end
     @books = @user.books
     @book = Book.new
   end
+
 
   def index
     @users = User.all

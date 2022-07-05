@@ -6,8 +6,8 @@
 <% end %>
 
 <hr>
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
+<% if @chats.present? %>
+  <% @chats.each do |m| %>
     <strong><%= m.message %></strong>
     <small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %>さん</a></strong></small>
     <hr>
