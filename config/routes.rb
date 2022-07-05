@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'rooms/show'
   devise_for :users
 
   root to: "homes#top"
@@ -18,4 +19,6 @@ Rails.application.routes.draw do
   delete '/books/:book_id/favorites' => 'favorites#destroy', as: 'destroy_favorites'
 
   get '/search', to: 'searches#search'
+  resources :chats, only: [:create]
+  resources :rooms, only: [:create, :show]
 end

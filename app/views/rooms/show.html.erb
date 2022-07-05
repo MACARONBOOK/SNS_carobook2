@@ -1,0 +1,25 @@
+<div class="container"><h1>チャットルーム</h1>
+
+<h5><i class="fas fa-user-shield">参加者</i></h5>
+<% @entries.each do |e| %>
+  <h6><a href="/users/<%= e.user.id %>"><%= e.user.name%>さん</a></h6>
+<% end %>
+
+<hr>
+<% if @messages.present? %>
+  <% @messages.each do |m| %>
+    <strong><%= m.message %></strong>
+    <small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.name %>さん</a></strong></small>
+    <hr>
+  <% end %>
+<% else %>
+  <h3 class="text-center">メッセージはまだありません</h3>
+<% end %>
+<%= form_with model: @chat do |f| %>
+  <%= f.text_field :message, :placeholder => "メッセージを入力して下さい" , :size => 50 %>
+  <%= f.hidden_field :room_id, :value => @room.id %>
+  <br>
+  <%= f.submit "投稿する" %>
+<% end %>
+<%= link_to "Users", users_path,class:"fas fa-users"%>
+</div>
