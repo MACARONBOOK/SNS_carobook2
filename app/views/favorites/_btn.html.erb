@@ -2,12 +2,12 @@
   <% if book.favorited_by?(current_user) %>
     <%= link_to destroy_favorites_path(book), method: :delete, remote: true do %>
       <i class="fas fa-heart unlike-btn" aria-hidden="true" style="color: red;"></i>
-      <%= book.favorites.count %>
+      <%= book.week_favorites.count %>
     <% end %>
   <% else %>
     <%= link_to create_favorites_path(book), method: :post, remote: true do %>
       <i class="fas fa-heart like-btn" aria-hidden="true"></i>
-      <%= book.favorites.count %>
+      <%= book.week_favorites.count %>
     <% end %>
   <% end %>
 <% end %>
