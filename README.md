@@ -137,4 +137,27 @@ end
 * rewrite at favorites/btn<br>
   book.favorites.count → book.week_favorites.count<br>
   
-# DM_function  
+# DM_function 
+It just one-to-one relation.(many-to-many relation have other-style.)
+
+* create model(3)
+* association
+* + user
+
+* + entry 
+* + room
+* + chat
+
+* rewrite on Controller(3)
+* + users
+* + rooms
+* + chats
+
+* add at routing
+
+* create view(rooms/show)
+
+* add at view<br>
+  I'll show two-type of description!
+* + users/index(→not to use template)
+* + users/show(→users/info)
