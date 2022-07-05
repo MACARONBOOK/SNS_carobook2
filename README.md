@@ -116,3 +116,25 @@ end
       % end %<br>
   % end %<br>
   /table<br>
+
+
+# +α like-it_function (weekly-ranking)
+
+* rewrite at index-action BookCon<br>
+  def index<br>
+    to  = Time.current.at_end_of_day<br>
+    from  = (to - 6.day).at_beginning_of_day<br>
+    @books = Book.all.sort {|a,b|<br>
+      b.favorites.where(created_at: from...to).size <=><br>
+      a.favorites.where(created_at: from...to).size<br>
+    }<br>
+    @book = Book.new<br>
+  end
+
+* add at book.rb<br>
+  has_many :week_favorites, -> { where(created_at: ((Time.current.at_end_of_day - 6.day).at_beginning_of_day)..   (Time.current.at_end_of_day)) }, class_name: 'Favorite'
+
+* rewrite at favorites/btn<br>
+  book.favorites.count → book.week_favorites.count<br>
+  
+# DM_function  
