@@ -20,6 +20,8 @@
           <%= render "favorites/btn", book: book %>
         </td>
         <td><%= render "book_comments/counter", book: book %></td>
+        <!--閲覧数-->
+        <td><i class="fas fa-eye"></i><%= book.impressionist_count(:filter => :session_hash) %></td>
       </tr>
     <% end %>
   </tbody>

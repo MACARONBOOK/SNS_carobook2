@@ -1,14 +1,16 @@
 class BooksController < ApplicationController
+  impressionist :actions=> [:show]
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
     @book = Book.find(params[:id])
+    impressionist(@book, nil, unique: [:session_hash.to_s])
     @book_comment = BookComment.new
   end
 
   def index
-    to  = Time.current.at_beginnig_of_day
+    to  = Time.current.at_beginning_of_day
     from  = (to - 6.day).at_end_of_day
     @books = Book.all.sort {|a,b|
       b.favorites.where(created_at: from...to).size <=>
