@@ -252,16 +252,16 @@ It just one-to-one relation.(many-to-many relation have other-style.)
    %= link_to "Users", users_path,class:"fas fa-users"%<br>
    /div
 
-* add at view<br>
+* add at views ※remove<><br>
   I'll show two-type of description!<br>
-* + users/index(→use template, _info(userindex) )<br>
+* + users/index(→create new template, _info(userindex) )<br>
    %= render 'info(userindex)', user: current_user %
 * + users/_info(userindex)<br>
    % if current_user != user && current_user.following?(user) && user.following?(current_user) %<br>
      %= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %<br>
    % end %
  
-* + users/show(→users/info)<br>
+* + users/show(→create new to differentiate, _info(usershow))<br>
    %= render 'info', user: @user, isRoom: @isRoom, roomId: @roomId, room: @room, entry: @entry %
 * + users/_info<br>
    % if current_user.id != user.id %<br>
